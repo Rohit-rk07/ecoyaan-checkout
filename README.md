@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Ecoyaan Checkout Assignment
 
-## Getting Started
+A simplified checkout flow inspired by Ecoyaan, built with Next.js App Router.
 
-First, run the development server:
+## Live Flow
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- `/cart` (SSR cart data)
+- `/checkout/shipping` (shipping form + validation)
+- `/checkout/payment` (payment confirmation)
+- `/success` (order success)
+
+## Tech Stack
+
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- Context API
+- Next.js API Routes (mock backend)
+
+## Features
+
+- Server-side cart data fetch with `cache: "no-store"`
+- Multi-step checkout flow using router navigation
+- Context-based global state for cart and shipping address
+- Form validation for required fields, email, phone, and PIN
+- Reusable UI components (`CartItem`, `OrderSummary`, `ShippingForm`)
+- Responsive layout for mobile and desktop
+
+## Project Structure
+
+```text
+app/
+  api/cart/route.js
+  cart/page.js
+  checkout/shipping/page.js
+  checkout/payment/page.js
+  success/page.js
+components/
+  CartItem.jsx
+  CartView.jsx
+  OrderSummary.jsx
+  ShippingForm.jsx
+context/
+  CheckoutContext.jsx
+lib/
+  fetchCart.js
+  mockCartData.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run Locally
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then open `http://localhost:3000/cart`.
 
-## Learn More
+## Mock API
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Endpoint: `GET /api/cart`
+- Response includes:
+  - `cartItems`
+  - `shipping_fee`
+  - `discount_applied`
