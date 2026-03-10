@@ -32,8 +32,11 @@ export default function SuccessPage() {
           <Link
             href="/cart"
             className="inline-flex min-h-12 w-fit items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-sm font-semibold leading-none text-white shadow-[0_12px_30px_rgba(19,26,22,0.18)] transition hover:opacity-92"
+            style={{ color: "#ffffff" }}
           >
-            <span className="whitespace-nowrap text-white">Start over from cart</span>
+            <span className="whitespace-nowrap" style={{ color: "#ffffff" }}>
+              Start over from cart
+            </span>
           </Link>
         </div>
       </section>
