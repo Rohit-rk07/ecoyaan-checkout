@@ -12,7 +12,7 @@ export default function SuccessPage() {
             Order confirmed.
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)]">
-            The flow is complete. Cart data was fetched on the server, address state moved through the client, and payment stayed mocked by design.
+            The flow is complete.
           </p>
         </div>
         <div className="grid gap-6 px-8 py-8 md:grid-cols-[1.2fr_0.8fr] md:items-center">
@@ -20,12 +20,6 @@ export default function SuccessPage() {
             <div className="inline-flex rounded-full border border-[color:var(--border)] px-4 py-2 text-sm text-[color:var(--muted)]">
               Reference: ECO-DEMO-302
             </div>
-          </div>
-          <div className="rounded-[24px] bg-[color:var(--surface)] p-5">
-            <p className="text-sm font-medium text-[color:var(--ink)]">What this page proves</p>
-            <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-              Navigation, client state persistence, and end-to-end route completeness.
-            </p>
           </div>
         </div>
         <div className="px-8 pb-8">

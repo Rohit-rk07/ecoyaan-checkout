@@ -48,9 +48,6 @@ export default function PaymentPage() {
             </div>
           ) : null}
 
-          <div className="mt-6 rounded-[24px] border border-[color:var(--border)] bg-[linear-gradient(135deg,_rgba(142,168,122,0.12),_rgba(255,255,255,0.96))] p-4 text-sm leading-6 text-[color:var(--muted)]">
-            No gateway is wired here. Pressing the action below completes the mocked order and lands on the success page.
-          </div>
 
           <button
             type="button"
