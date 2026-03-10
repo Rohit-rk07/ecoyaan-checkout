@@ -5,8 +5,18 @@ import { useRouter } from "next/navigation";
 import { useCheckout } from "@/context/CheckoutContext";
 
 const fields = [
-  { name: "fullName", label: "Full Name", type: "text", placeholder: "Rohit Sharma" },
-  { name: "email", label: "Email", type: "email", placeholder: "rohit@example.com" },
+  {
+    name: "fullName",
+    label: "Full Name",
+    type: "text",
+    placeholder: "Rohit Sharma",
+  },
+  {
+    name: "email",
+    label: "Email",
+    type: "email",
+    placeholder: "rohit@example.com",
+  },
   { name: "phone", label: "Phone", type: "tel", placeholder: "9876543210" },
   { name: "pinCode", label: "PIN Code", type: "text", placeholder: "560001" },
   { name: "city", label: "City", type: "text", placeholder: "Bengaluru" },
@@ -51,7 +61,9 @@ function validateAddress(address) {
 export default function ShippingForm() {
   const router = useRouter();
   const { shippingAddress, setShippingAddress } = useCheckout();
-  const [formData, setFormData] = useState(shippingAddress || getEmptyAddress());
+  const [formData, setFormData] = useState(
+    shippingAddress || getEmptyAddress(),
+  );
   const [errors, setErrors] = useState({});
 
   const onChange = (event) => {
@@ -83,18 +95,20 @@ export default function ShippingForm() {
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
             Shipping
           </p>
-          <h2 className="mt-2 text-xl font-semibold text-[color:var(--ink)]">Delivery address</h2>
+          <h2 className="mt-2 text-xl font-semibold text-[color:var(--ink)]">
+            Delivery address
+          </h2>
         </div>
         <span className="rounded-full border border-[color:var(--border)] px-3 py-1 text-xs text-[color:var(--muted)]">
           Required
         </span>
       </div>
-      <p className="mt-3 max-w-xl text-sm leading-6 text-[color:var(--muted)]">
-        This is intentionally a lean form. It captures enough information to demonstrate validation and state handoff across checkout steps.
-      </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {fields.map((field) => (
-          <label key={field.name} className="flex flex-col gap-1.5 text-sm text-[color:var(--ink)]">
+          <label
+            key={field.name}
+            className="flex flex-col gap-1.5 text-sm text-[color:var(--ink)]"
+          >
             <span className="font-medium">{field.label}</span>
             <input
               name={field.name}
@@ -105,7 +119,9 @@ export default function ShippingForm() {
               className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-3 outline-none transition placeholder:text-[color:var(--muted-soft)] focus:border-[color:var(--border-strong)]"
             />
             {errors[field.name] ? (
-              <span className="text-xs text-[color:var(--danger)]">{errors[field.name]}</span>
+              <span className="text-xs text-[color:var(--danger)]">
+                {errors[field.name]}
+              </span>
             ) : null}
           </label>
         ))}

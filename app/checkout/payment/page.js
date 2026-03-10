@@ -29,8 +29,7 @@ export default function PaymentPage() {
     <CheckoutShell
       activeStep="payment"
       eyebrow="Step 03"
-      title="Confirm delivery details and simulate payment."
-      description="This last screen is intentionally mocked. The main objective is showing state continuity, SSR on cart load, and guarded navigation."
+      title="Confirm delivery details and payment."
     >
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
         <section className="rounded-[28px] border border-[color:var(--border)] bg-[color:var(--panel-strong)] p-5 shadow-[0_18px_40px_rgba(19,26,22,0.08)]">
@@ -59,7 +58,7 @@ export default function PaymentPage() {
             disabled={!shippingAddress}
             className="mt-6 w-full rounded-full bg-[color:var(--ink)] px-4 py-3 text-sm font-semibold text-white transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Complete mocked payment
+            Complete payment
           </button>
         </section>
         <OrderSummary cart={cart} />

@@ -21,8 +21,7 @@ export default function ShippingPage() {
     <CheckoutShell
       activeStep="shipping"
       eyebrow="Step 02"
-      title="Capture address details and keep the flow moving."
-      description="The shipping form writes into shared client state so the payment screen can render instantly without another request."
+      title="Address Details"
     >
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
         <ShippingForm />

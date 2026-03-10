@@ -20,9 +20,6 @@ export default function SuccessPage() {
             <div className="inline-flex rounded-full border border-[color:var(--border)] px-4 py-2 text-sm text-[color:var(--muted)]">
               Reference: ECO-DEMO-302
             </div>
-            <p className="mt-5 text-sm leading-6 text-[color:var(--muted)]">
-              If this were production, the next step would be handoff to order creation and confirmation email workflows. For the assignment, this page closes the mocked checkout loop.
-            </p>
           </div>
           <div className="rounded-[24px] bg-[color:var(--surface)] p-5">
             <p className="text-sm font-medium text-[color:var(--ink)]">What this page proves</p>
@@ -31,12 +28,14 @@ export default function SuccessPage() {
             </p>
           </div>
         </div>
-        <Link
-          href="/cart"
-          className="mx-8 mb-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-92"
-        >
-          Start over from cart
-        </Link>
+        <div className="px-8 pb-8">
+          <Link
+            href="/cart"
+            className="inline-flex min-h-12 w-fit items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-sm font-semibold leading-none text-white shadow-[0_12px_30px_rgba(19,26,22,0.18)] transition hover:opacity-92"
+          >
+            <span className="whitespace-nowrap text-white">Start over from cart</span>
+          </Link>
+        </div>
       </section>
     </main>
   );
