@@ -2,12 +2,13 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import CheckoutShell from "@/components/CheckoutShell";
 import OrderSummary from "@/components/OrderSummary";
 import { useCheckout } from "@/context/CheckoutContext";
 
 export default function PaymentPage() {
   const router = useRouter();
-  const { cart, address } = useCheckout();
+  const { cart, shippingAddress } = useCheckout();
 
   useEffect(() => {
     if (!cart.cartItems.length) {
@@ -15,47 +16,54 @@ export default function PaymentPage() {
       return;
     }
 
-    if (!address) {
+    if (!shippingAddress) {
       router.replace("/checkout/shipping");
     }
-  }, [address, cart.cartItems.length, router]);
+  }, [shippingAddress, cart.cartItems.length, router]);
 
   const onPay = () => {
     router.push("/success");
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-2xl font-bold text-zinc-900">Payment Confirmation</h1>
+    <CheckoutShell
+      activeStep="payment"
+      eyebrow="Step 03"
+      title="Confirm delivery details and simulate payment."
+      description="This last screen is intentionally mocked. The main objective is showing state continuity, SSR on cart load, and guarded navigation."
+    >
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
-        <section className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-semibold text-zinc-900">Delivery Details</h2>
-          {address ? (
-            <div className="mt-3 space-y-1 text-sm text-zinc-700">
-              <p>{address.fullName}</p>
-              <p>{address.email}</p>
-              <p>{address.phone}</p>
+        <section className="rounded-[28px] border border-[color:var(--border)] bg-[color:var(--panel-strong)] p-5 shadow-[0_18px_40px_rgba(19,26,22,0.08)]">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
+            Payment
+          </p>
+          <h2 className="mt-2 text-xl font-semibold text-[color:var(--ink)]">Delivery details</h2>
+          {shippingAddress ? (
+            <div className="mt-4 rounded-[24px] bg-[color:var(--surface)] px-4 py-4 text-sm leading-6 text-[color:var(--muted)]">
+              <p className="font-semibold text-[color:var(--ink)]">{shippingAddress.fullName}</p>
+              <p>{shippingAddress.email}</p>
+              <p>{shippingAddress.phone}</p>
               <p>
-                {address.city}, {address.state} - {address.pinCode}
+                {shippingAddress.city}, {shippingAddress.state} - {shippingAddress.pinCode}
               </p>
             </div>
           ) : null}
 
-          <div className="mt-6 rounded-lg border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
-            Payment is mocked for this assignment. Clicking the button confirms your order.
+          <div className="mt-6 rounded-[24px] border border-[color:var(--border)] bg-[linear-gradient(135deg,_rgba(142,168,122,0.12),_rgba(255,255,255,0.96))] p-4 text-sm leading-6 text-[color:var(--muted)]">
+            No gateway is wired here. Pressing the action below completes the mocked order and lands on the success page.
           </div>
 
           <button
             type="button"
             onClick={onPay}
-            disabled={!address}
-            className="mt-6 w-full rounded-lg bg-zinc-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-zinc-700 disabled:cursor-not-allowed disabled:bg-zinc-400"
+            disabled={!shippingAddress}
+            className="mt-6 w-full rounded-full bg-[color:var(--ink)] px-4 py-3 text-sm font-semibold text-white transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Pay Securely
+            Complete mocked payment
           </button>
         </section>
         <OrderSummary cart={cart} />
       </div>
-    </main>
+    </CheckoutShell>
   );
 }

@@ -1,36 +1,41 @@
-function formatINR(value) {
-  return `Rs. ${Number(value).toLocaleString("en-IN")}`;
-}
+import { formatPrice, getCartTotals } from "@/lib/cartMath";
 
 export default function OrderSummary({ cart }) {
-  const items = cart?.cartItems || [];
-  const shipping = Number(cart?.shipping_fee || 0);
-  const discount = Number(cart?.discount_applied || 0);
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const total = subtotal + shipping - discount;
+  const { itemCount, subtotal, shipping, discount, total } = getCartTotals(cart);
 
   return (
-    <aside className="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
-      <h2 className="text-lg font-semibold text-zinc-900">Order Summary</h2>
-      <div className="mt-4 space-y-2 text-sm text-zinc-700">
+    <aside className="rounded-[28px] border border-[color:var(--border)] bg-[color:var(--panel-strong)] p-5 text-[color:var(--ink)] shadow-[0_20px_60px_rgba(19,26,22,0.08)]">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
+            Summary
+          </p>
+          <h2 className="mt-2 text-xl font-semibold">Order snapshot</h2>
+        </div>
+        <span className="rounded-full border border-[color:var(--border)] px-3 py-1 text-xs text-[color:var(--muted)]">
+          {itemCount} items
+        </span>
+      </div>
+      <div className="mt-6 space-y-3 text-sm text-[color:var(--muted)]">
         <div className="flex items-center justify-between">
-          <span>Subtotal</span>
-          <span>{formatINR(subtotal)}</span>
+          <span>Bag subtotal</span>
+          <span className="text-[color:var(--ink)]">{formatPrice(subtotal)}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span>Shipping</span>
-          <span>{formatINR(shipping)}</span>
+          <span>Shipping fee</span>
+          <span className="text-[color:var(--ink)]">{formatPrice(shipping)}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span>Discount</span>
-          <span>- {formatINR(discount)}</span>
+          <span>Eco discount</span>
+          <span className="text-[color:var(--accent-strong)]">- {formatPrice(discount)}</span>
         </div>
       </div>
-      <div className="mt-4 border-t border-zinc-200 pt-3">
-        <div className="flex items-center justify-between text-base font-semibold text-zinc-900">
-          <span>Total</span>
-          <span>{formatINR(total)}</span>
+      <div className="mt-5 rounded-2xl bg-[color:var(--surface)] px-4 py-4">
+        <div className="flex items-center justify-between text-base font-semibold text-[color:var(--ink)]">
+          <span>Final total</span>
+          <span>{formatPrice(total)}</span>
         </div>
+        <p className="mt-1 text-xs text-[color:var(--muted)]">Inclusive of taxes. Payment is simulated in the next step.</p>
       </div>
     </aside>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import CheckoutShell from "@/components/CheckoutShell";
 import ShippingForm from "@/components/ShippingForm";
 import OrderSummary from "@/components/OrderSummary";
 import { useCheckout } from "@/context/CheckoutContext";
@@ -17,12 +18,16 @@ export default function ShippingPage() {
   }, [cart.cartItems.length, router]);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-2xl font-bold text-zinc-900">Checkout</h1>
+    <CheckoutShell
+      activeStep="shipping"
+      eyebrow="Step 02"
+      title="Capture address details and keep the flow moving."
+      description="The shipping form writes into shared client state so the payment screen can render instantly without another request."
+    >
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
         <ShippingForm />
         <OrderSummary cart={cart} />
       </div>
-    </main>
+    </CheckoutShell>
   );
 }

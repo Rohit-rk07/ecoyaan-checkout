@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Ecoyaan Checkout",
-  description: "SSR checkout flow using Next.js App Router",
+  title: "Ecoyaan Checkout Walkthrough",
+  description: "A compact SSR-first checkout flow built with Next.js App Router.",
 };
 
 export default function RootLayout({ children }) {
