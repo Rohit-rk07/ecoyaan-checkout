@@ -55,3 +55,8 @@ input,
 button {
   font: inherit;
 }
+
+button:not(:disabled),
+a {
+  cursor: pointer;
+}

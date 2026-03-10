@@ -33,7 +33,7 @@ export default function SuccessPage() {
         </div>
         <Link
           href="/cart"
-          className="mx-8 mb-8 inline-flex rounded-full bg-[color:var(--ink)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-92"
+          className="mx-8 mb-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-92"
         >
           Start over from cart
         </Link>
