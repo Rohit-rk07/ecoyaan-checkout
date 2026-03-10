@@ -1,32 +1,66 @@
 # Ecoyaan Checkout Assignment
 
-A simplified checkout flow inspired by Ecoyaan, built with Next.js App Router.
+A simplified checkout flow inspired by Ecoyaan, built with Next.js App Router. The project demonstrates SSR data fetching for the cart, client-side state persistence across checkout steps, and a local mock API.
 
-## Live Flow
+## Links
 
-- `/cart` (SSR cart data)
-- `/checkout/shipping` (shipping form + validation)
-- `/checkout/payment` (payment confirmation)
-- `/success` (order success)
+- Repository: `https://github.com/Rohit-rk07/ecoyaan-checkout`
+- Deployment: `https://ecoyaan-checkout-4sawxjp9f-rohit12345rks-projects.vercel.app`
 
-## Tech Stack
+## Implemented Flow
 
-- Next.js (App Router)
-- React
-- Tailwind CSS
-- Context API
-- Next.js API Routes (mock backend)
+- `/cart`
+- `/checkout/shipping`
+- `/checkout/payment`
+- `/success`
+
+## Technical Choices
+
+- `Next.js App Router`: The cart page uses a Server Component to fetch cart data during rendering, which satisfies the SSR requirement without `getServerSideProps`.
+- `Context API`: Cart data and shipping details need to persist across three client-side steps. Context kept this simple without adding an external state library.
+- `Next.js API Route`: `GET /api/cart` serves the provided mock JSON locally so the SSR step still resembles a real backend fetch.
+- `Tailwind CSS`: Used for fast iteration and responsive layout control without adding a larger UI dependency.
 
 ## Features
 
-- Server-side cart data fetch with `cache: "no-store"`
-- Multi-step checkout flow using router navigation
-- Context-based global state for cart and shipping address
-- Form validation for required fields, email, phone, and PIN
-- Reusable UI components (`CartItem`, `OrderSummary`, `ShippingForm`)
+- SSR cart fetch using `fetch(..., { cache: "no-store" })`
+- Cart list with product image, name, price, quantity, subtotal, shipping fee, and grand total
+- Shipping form with required field validation
+- Email format validation
+- 10-digit phone number validation
+- 6-digit PIN code validation
+- Payment confirmation step that displays both the order summary and shipping address
+- Simulated payment flow leading to a success page
 - Responsive layout for mobile and desktop
 
-## Project Structure
+## Mock Data
+
+The app uses the exact JSON structure provided in the assignment through [lib/mockCartData.js](C:/Users/rohit/Desktop/Me/Projects/Assignmnt/ecoyaan-checkout/lib/mockCartData.js) and exposes it through [app/api/cart/route.js](C:/Users/rohit/Desktop/Me/Projects/Assignmnt/ecoyaan-checkout/app/api/cart/route.js).
+
+```json
+{
+  "cartItems": [
+    {
+      "product_id": 101,
+      "product_name": "Bamboo Toothbrush (Pack of 4)",
+      "product_price": 299,
+      "quantity": 2,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "product_id": 102,
+      "product_name": "Reusable Cotton Produce Bags",
+      "product_price": 450,
+      "quantity": 1,
+      "image": "https://via.placeholder.com/150"
+    }
+  ],
+  "shipping_fee": 50,
+  "discount_applied": 0
+}
+```
+
+## Architecture
 
 ```text
 app/
@@ -38,28 +72,27 @@ app/
 components/
   CartItem.jsx
   CartView.jsx
+  CheckoutShell.jsx
   OrderSummary.jsx
   ShippingForm.jsx
 context/
   CheckoutContext.jsx
 lib/
+  cartMath.js
   fetchCart.js
   mockCartData.js
 ```
 
-## Run Locally
+## Local Setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open `http://localhost:3000/cart`.
+Open `http://localhost:3000/cart`.
 
-## Mock API
+## Notes
 
-- Endpoint: `GET /api/cart`
-- Response includes:
-  - `cartItems`
-  - `shipping_fee`
-  - `discount_applied`
+- The payment step is intentionally mocked because the assignment only asks for a simulated confirmation flow.
+- The cart fetch is server-rendered only on the cart page; later steps use client state to keep the flow straightforward.

@@ -35,7 +35,7 @@ export default function CartView({ initialCart }) {
             <span>Mock inventory available</span>
           </div>
           {activeCart.cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
+            <CartItem key={item.product_id} item={item} />
           ))}
         </section>
         <section className="space-y-4">
