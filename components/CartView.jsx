@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import CartItem from "@/components/CartItem";
 import CheckoutShell from "@/components/CheckoutShell";
 import OrderSummary from "@/components/OrderSummary";
+import StickyActions from "@/components/StickyActions";
 import { useCheckout } from "@/context/CheckoutContext";
 import { getCartTotals } from "@/lib/cartMath";
 
@@ -26,6 +27,8 @@ export default function CartView({ initialCart }) {
       activeStep="cart"
       eyebrow="Step 01"
       title="Review the bag before you lock the order."
+      description="Double-check quantities and totals. Continue when everything looks good."
+      hasStickyFooter
     >
       <div className="grid gap-6 lg:grid-cols-[1.6fr_0.9fr]">
         <section className="space-y-4">
@@ -38,17 +41,14 @@ export default function CartView({ initialCart }) {
         </section>
         <section className="space-y-4">
           <OrderSummary cart={activeCart} />
-          <div className="rounded-[24px] border border-[color:var(--border)] bg-[color:var(--surface)] p-4">
-            <button
-              type="button"
-              onClick={() => router.push("/checkout/shipping")}
-              className="mt-4 w-full rounded-full bg-[color:var(--ink)] px-4 py-3 text-sm font-semibold text-white transition hover:opacity-92"
-            >
-              Continue to shipping
-            </button>
-          </div>
         </section>
       </div>
+
+      <StickyActions
+        primaryLabel="Next step"
+        onPrimary={() => router.push("/checkout/shipping")}
+        primaryDisabled={!activeCart.cartItems.length}
+      />
     </CheckoutShell>
   );
 }

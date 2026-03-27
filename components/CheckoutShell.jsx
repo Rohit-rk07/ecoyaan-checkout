@@ -9,6 +9,7 @@ export default function CheckoutShell({
   eyebrow,
   title,
   description,
+  hasStickyFooter = false,
   children,
 }) {
   return (
@@ -23,9 +24,11 @@ export default function CheckoutShell({
               <h1 className="mt-3 max-w-xl text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)] sm:text-4xl">
                 {title}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                {description}
-              </p>
+              {description ? (
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
+                  {description}
+                </p>
+              ) : null}
             </div>
             <ol className="flex gap-3 overflow-x-auto pb-1">
               {STEPS.map((step, index) => {
@@ -48,7 +51,13 @@ export default function CheckoutShell({
             </ol>
           </div>
         </div>
-        <div className="px-6 py-6 sm:px-8 sm:py-8">{children}</div>
+        <div
+          className={`px-6 py-6 sm:px-8 sm:py-8 ${
+            hasStickyFooter ? "pb-32 sm:pb-28" : ""
+          }`}
+        >
+          {children}
+        </div>
       </section>
     </main>
   );

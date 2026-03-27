@@ -5,7 +5,9 @@ A simplified checkout flow inspired by Ecoyaan, built with Next.js App Router. T
 ## Links
 
 - Repository: `https://github.com/Rohit-rk07/ecoyaan-checkout`
-- Deployment: `https://ecoyaan-checkout-4sawxjp9f-rohit12345rks-projects.vercel.app`
+- Deployment (public): `https://ecoyaan-checkout-4sawxjp9f-rohit12345rks-projects.vercel.app`
+
+> If the deployment URL prompts for login or access, make it publicly accessible by using a **Production** deployment and disabling any **Deployment Protection** / password protection in the Vercel project settings. You can also deploy from the CLI with `npx vercel --prod`.
 
 ## Implemented Flow
 
@@ -31,6 +33,8 @@ A simplified checkout flow inspired by Ecoyaan, built with Next.js App Router. T
 - 6-digit PIN code validation
 - Payment confirmation step that displays both the order summary and shipping address
 - Simulated payment flow leading to a success page
+- Multiple saved addresses (add / edit / delete) with local persistence across refresh
+- Sticky bottom action bar with Back + Next Step buttons
 - Responsive layout for mobile and desktop
 
 ## Mock Data

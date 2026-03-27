@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CheckoutShell from "@/components/CheckoutShell";
 import OrderSummary from "@/components/OrderSummary";
+import StickyActions from "@/components/StickyActions";
 import { useCheckout } from "@/context/CheckoutContext";
 
 export default function PaymentPage() {
   const router = useRouter();
-  const { cart, shippingAddress } = useCheckout();
+  const { cart, selectedShippingAddress } = useCheckout();
 
   useEffect(() => {
     if (!cart.cartItems.length) {
@@ -16,10 +17,10 @@ export default function PaymentPage() {
       return;
     }
 
-    if (!shippingAddress) {
+    if (!selectedShippingAddress) {
       router.replace("/checkout/shipping");
     }
-  }, [shippingAddress, cart.cartItems.length, router]);
+  }, [selectedShippingAddress, cart.cartItems.length, router]);
 
   const onPay = () => {
     router.push("/success");
@@ -30,6 +31,8 @@ export default function PaymentPage() {
       activeStep="payment"
       eyebrow="Step 03"
       title="Confirm delivery details and payment."
+      description="Review the address and order summary. The payment action is simulated for this assignment."
+      hasStickyFooter
     >
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
         <section className="rounded-[28px] border border-[color:var(--border)] bg-[color:var(--panel-strong)] p-5 shadow-[0_18px_40px_rgba(19,26,22,0.08)]">
@@ -37,29 +40,27 @@ export default function PaymentPage() {
             Payment
           </p>
           <h2 className="mt-2 text-xl font-semibold text-[color:var(--ink)]">Delivery details</h2>
-          {shippingAddress ? (
+          {selectedShippingAddress ? (
             <div className="mt-4 rounded-[24px] bg-[color:var(--surface)] px-4 py-4 text-sm leading-6 text-[color:var(--muted)]">
-              <p className="font-semibold text-[color:var(--ink)]">{shippingAddress.fullName}</p>
-              <p>{shippingAddress.email}</p>
-              <p>{shippingAddress.phone}</p>
+              <p className="font-semibold text-[color:var(--ink)]">{selectedShippingAddress.fullName}</p>
+              <p>{selectedShippingAddress.email}</p>
+              <p>{selectedShippingAddress.phone}</p>
               <p>
-                {shippingAddress.city}, {shippingAddress.state} - {shippingAddress.pinCode}
+                {selectedShippingAddress.city}, {selectedShippingAddress.state} - {selectedShippingAddress.pinCode}
               </p>
             </div>
           ) : null}
-
-
-          <button
-            type="button"
-            onClick={onPay}
-            disabled={!shippingAddress}
-            className="mt-6 w-full rounded-full bg-[color:var(--ink)] px-4 py-3 text-sm font-semibold text-white transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            Complete payment
-          </button>
         </section>
         <OrderSummary cart={cart} />
       </div>
+
+      <StickyActions
+        secondaryLabel="Back"
+        onSecondary={() => router.push("/checkout/shipping")}
+        primaryLabel="Complete payment"
+        onPrimary={onPay}
+        primaryDisabled={!selectedShippingAddress}
+      />
     </CheckoutShell>
   );
 }
